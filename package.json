@@ -1,0 +1,20 @@
+{
+  "name": "nodejs-course",
+  "version": "0.0.1",
+  "description": "A project for NodeJS complete guide course",
+  "main": "app.js",
+  "type": "module",
+  "scripts": {
+    "start": "node app"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Piligrimo/nodejs-course.git"
+  },
+  "author": "Maxim Ovchinnikov",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Piligrimo/nodejs-course/issues"
+  },
+  "homepage": "https://github.com/Piligrimo/nodejs-course#readme"
+}
