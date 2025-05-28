@@ -1,14 +1,11 @@
 
 import express from 'express'
+import path from 'path'
+
 const router = express.Router()
 
 router.get('/', (req, res, next) => {
-    res.send(
-        `<div>
-            <h1>Main Page</h1>
-            <a href="/admin/add-product"> Add product </a>
-        </div>`
-    )
+    res.sendFile(path.join(path.resolve(), 'views', 'shop.html'))
 })
 
 export default router
