@@ -1,8 +1,22 @@
-import { createServer } from 'http';
-import { requestHandler } from './routes.js'
+import express from 'express'
+import bodyParser from 'body-parser';
 
-const server = createServer(requestHandler)
+import adminRoutes from './routes/admin.js'
+import shopRoutes from './routes/shop.js'
 
-server.listen(3000);
+const PORT = 3000;
 
-console.log('http://localhost:3000/')
+const app = express()
+
+app.use(bodyParser.urlencoded())
+
+app.use('/admin', adminRoutes)
+app.use(shopRoutes)
+
+app.use((req, res, next) => {
+    res.status(404).send('<h1>Page not found</h1>')
+})
+
+app.listen(PORT, () => {
+    console.log(`Running on http://localhost:${PORT}/`)
+});
