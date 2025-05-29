@@ -1,10 +1,9 @@
 import express from 'express'
 import bodyParser from 'body-parser';
-import path from 'path';
 
-
-import { router as adminRoutes } from './routes/admin.js'
+import adminRoutes  from './routes/admin.js'
 import shopRoutes from './routes/shop.js'
+import { getNotFoundError } from './controllers/error.js';
 
 
 const PORT = 3000;
@@ -22,9 +21,7 @@ app.use(bodyParser.urlencoded())
 app.use(adminRoutes)
 app.use(shopRoutes)
 
-app.use((req, res, next) => {
-    res.status(404).render('404')
-})
+app.use(getNotFoundError)
 
 app.listen(PORT, () => {
     console.log(`Running on http://localhost:${PORT}/`)
