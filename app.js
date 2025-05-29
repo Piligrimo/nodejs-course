@@ -1,22 +1,29 @@
 import express from 'express'
 import bodyParser from 'body-parser';
-
-import adminRoutes from './routes/admin.js'
-import shopRoutes from './routes/shop.js'
 import path from 'path';
+
+
+import { router as adminRoutes } from './routes/admin.js'
+import shopRoutes from './routes/shop.js'
+
 
 const PORT = 3000;
 
 const app = express()
 
+
+
+app.use(express.static('public'));
+
+app.set('view engine', 'ejs')
+
 app.use(bodyParser.urlencoded())
 
-app.use('/admin', adminRoutes)
+app.use(adminRoutes)
 app.use(shopRoutes)
-app.use(express.static(path.join(path.resolve(), 'public')))
 
 app.use((req, res, next) => {
-    res.status(404).sendFile(path.join(path.resolve(), 'views', '404.html'))
+    res.status(404).render('404')
 })
 
 app.listen(PORT, () => {

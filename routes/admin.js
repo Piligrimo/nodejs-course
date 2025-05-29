@@ -3,14 +3,16 @@ import path from 'path'
 
 const router = express.Router()
 
-router.get('/add-product', (req, res, next) => {
-    res.sendFile(path.join(path.resolve(), 'views', 'add-product.html'))
+const products = []
+
+router.get('/admin/add-product', (req, res, next) => {
+    res.render('add-product', {stylesPrefix: '../'})
 })
 
-router.post('/add-product', (req, res, next) => {
-    console.log(req.body)
+router.post('/admin/add-product', (req, res, next) => {
+    products.push({title: req.body.title})
     res.redirect('/admin/add-product')
 })
 
 
-export default router
+export {router, products}
