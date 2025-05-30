@@ -1,0 +1,32 @@
+<%- include('../shared/head.ejs') %>
+<link rel="stylesheet" href="/style/product.css">
+</head>
+<body>
+    <%- include('../shared/nav.ejs') %>
+    <main>
+        <h1>All products</h1>
+        <% if (products.length > 0) { %>
+            <div class="grid">
+                <% for( let product of products) { %>
+                    <article class="card product-item">
+                        <header class="card__header">
+                            <h1 class="product__title"><%= product.title %></h1>
+                        </header>
+                        <div class="card__image">
+                        <img src="https://i.ibb.co/Gvdbfb42/photo-2025-05-29-13-21-14.jpg" alt="photo-2025-05-29-13-21-14" border="0">
+                        </div>
+                        <div class="card__content">
+                            <h2 class="product__price">19.99 $</h2>
+                            <p class="product__description">A piece capturing the beauty of author's apearance</p>
+                        </div>
+                        <div class="card__actions">
+                            <a href="/admin/edit-product"><button class="btn"> Edit </button></a>
+                        </div>
+                    </article>
+                <% } %>
+            </div>
+        <% } else  {%>
+            <p>Products will apear here</p>
+        <% }  %>
+    </main>
+<%- include('../shared/end.ejs') %>
