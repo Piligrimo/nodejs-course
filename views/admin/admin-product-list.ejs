@@ -19,12 +19,14 @@
                             <h2 class="product__price"><%= product.price %> $</h2>
                             <p class="product__description"><%= product.description %> </p>
                         </div>
-                        <form action="/admin/product" method="POST">
-                            <button class="btn" type="submit"> Delete </button>
-                        </form>
                         <div class="card__actions">
-                            <a href="/admin/edit-product"><button class="btn"> Edit </button></a>
+                            <form action="/admin/product" method="POST">
+                                    <button class="btn" type="submit"> Delete </button>
+                            </form>
+                            <a href="/admin/edit-product/<%= product.id %>"><button class="btn"> Edit </button></a>
                         </div>
+
+                        
                     </article>
                 <% } %>
             </div>

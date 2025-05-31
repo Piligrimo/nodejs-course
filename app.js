@@ -7,8 +7,6 @@ import { getNotFoundError } from './controllers/error.js';
 
 
 const PORT = 3000;
-console.log(1);
-
 const app = express()
 
 app.use(express.static('public'));
