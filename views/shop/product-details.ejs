@@ -2,7 +2,14 @@
 </head>
 <body>
     <%- include('../shared/nav.ejs') %>
-    <main>
-        <h1>Details</h1>
+    <main class="centered">
+        <h1 ><%= product.title  %></h1>
+        <hr>
+        <div>
+            <img src="<%= product.imageUrl %>" style="max-width: 300px;" alt="photo-2025-05-29-13-21-14" border="0">
+        </div>
+        <h2> $<%= product.price %></h2>
+        <p><%= product.description %></p>
+        <%- include('../shared/add-to-cart-form.ejs') %>
     </main>
 <%- include('../shared/end.ejs') %>

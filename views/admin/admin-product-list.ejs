@@ -13,12 +13,15 @@
                             <h1 class="product__title"><%= product.title %></h1>
                         </header>
                         <div class="card__image">
-                        <img src="https://i.ibb.co/Gvdbfb42/photo-2025-05-29-13-21-14.jpg" alt="photo-2025-05-29-13-21-14" border="0">
+                        <img src="<%= product.imageUrl %>" alt="photo-2025-05-29-13-21-14" border="0">
                         </div>
                         <div class="card__content">
-                            <h2 class="product__price">19.99 $</h2>
-                            <p class="product__description">A piece capturing the beauty of author's apearance</p>
+                            <h2 class="product__price"><%= product.price %> $</h2>
+                            <p class="product__description"><%= product.description %> </p>
                         </div>
+                        <form action="/admin/product" method="POST">
+                            <button class="btn" type="submit"> Delete </button>
+                        </form>
                         <div class="card__actions">
                             <a href="/admin/edit-product"><button class="btn"> Edit </button></a>
                         </div>

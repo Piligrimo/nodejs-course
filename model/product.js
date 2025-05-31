@@ -13,11 +13,15 @@ const readProductsFromFile = (cb) => {
 }
 
 export default class Product {
-    constructor(title) {
+    constructor(title, imageUrl, description, price ) {
         this.title = title;
+        this.imageUrl = imageUrl;
+        this.description = description;
+        this.price = Number(price);
     }
 
     save () {
+        this.id = Math.random().toString()
         readProductsFromFile((products) => {
             products.push(this)
             fs.writeFile(filePath, JSON.stringify(products), (err) => {
@@ -30,5 +34,11 @@ export default class Product {
 
     static fetchAll (cb) {
         readProductsFromFile(cb)
+    }
+
+    static getById (id, cb) {
+        readProductsFromFile((products) => {
+            cb(products.find(item => item.id = id))
+        })
     }
 }

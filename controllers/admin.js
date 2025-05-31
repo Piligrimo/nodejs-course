@@ -2,7 +2,7 @@
 import Product from "../model/product.js"
 
 export const getAddProduct = (req, res, next) => {
-    res.render('admin/add-product', { pageTitle: 'Add product' })
+    res.render('admin/edit-product', { pageTitle: 'Add product' })
 }
 
 export const getEditProduct = (req, res, next) => {
@@ -10,9 +10,10 @@ export const getEditProduct = (req, res, next) => {
 }
 
 export const postAddProduct = (req, res, next) => {
-    const product = new Product(req.body.title)
+    const {title, description, imageUrl, price} = req.body
+    const product = new Product(title, imageUrl, description, price)
     product.save()
-    res.redirect('/admin/add-product')
+    res.redirect('/admin/edit-product')
 }
 
 export const getAdminProductList = (req, res, next) => {
