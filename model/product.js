@@ -1,5 +1,6 @@
 import fs from 'fs'
 import path from 'path';
+import Cart from './cart.js';
 
 const filePath = path.join(path.resolve(), 'data', 'products.json')
 
@@ -21,7 +22,7 @@ export default class Product {
         this.price = Number(price);
     }
 
-    save () {
+    save (cb) {
         readProductsFromFile((products) => {
             if (this.id) {
                 
@@ -33,6 +34,8 @@ export default class Product {
                 fs.writeFile(filePath, JSON.stringify(updatedProducts), (err) => {
                     if (err) {
                         console.error(err)
+                    } else {
+                        cb?.()
                     }
                 })
             } else {
@@ -41,6 +44,8 @@ export default class Product {
                 fs.writeFile(filePath, JSON.stringify(products), (err) => {
                     if (err) {
                         console.error(err)
+                    } else {
+                        cb?.()
                     }
                 })
             }
@@ -57,4 +62,18 @@ export default class Product {
             cb(products.find(item => item.id === id))
         })
     }
+
+    static deleteById (id, cb) {
+        readProductsFromFile((products) => {
+            const product = products.find(item => item.id === id)
+            const updatedProducts = products.filter(item => item.id !== id)
+            fs.writeFile(filePath, JSON.stringify(updatedProducts), (err) => {
+                if (!err) {
+                    Cart.delete(id, product.price)
+                    cb?.()
+                }
+            })
+        })
+    }
+
 }

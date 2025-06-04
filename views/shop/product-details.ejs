@@ -3,13 +3,13 @@
 <body>
     <%- include('../shared/nav.ejs') %>
     <main class="centered">
-        <h1 ><%= product.title  %></h1>
+        <h1 ><%= product?.title  %></h1>
         <hr>
         <div>
-            <img src="<%= product.imageUrl %>" style="max-width: 300px;" alt="photo-2025-05-29-13-21-14" border="0">
+            <img src="<%= product?.imageUrl %>" style="max-width: 300px;" alt="photo-2025-05-29-13-21-14" border="0">
         </div>
-        <h2> $<%= product.price %></h2>
-        <p><%= product.description %></p>
-        <%- include('../shared/add-to-cart-form.ejs') %>
+        <h2> $<%= product?.price %></h2>
+        <p><%= product?.description %></p>
+        <%- include('../shared/add-to-cart-form.ejs',  {path: '/products/' + product?.id} )%>
     </main>
 <%- include('../shared/end.ejs') %>

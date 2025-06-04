@@ -19,6 +19,7 @@ export const addToCart = (req, res, next) => {
     Product.getById(id, (product) => {
         Cart.add(id,product.price)
     })
+    res.redirect(req.body.from)
 }
 
 export const getOrders = (req, res, next) => {

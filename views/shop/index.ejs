@@ -20,7 +20,7 @@
                             <p class="product__description"><%= product.description %> </p>
                         </div>
                         <div class="card__actions">
-                            <%- include('../shared/add-to-cart-form.ejs', { product }) %>
+                            <%- include('../shared/add-to-cart-form.ejs', { product, path: '/' }) %>
                             <a href="/products/<%= product.id %>"><button class="btn"> Details </button></a>
                         </div>
                     </article>

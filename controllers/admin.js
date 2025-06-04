@@ -37,6 +37,15 @@ export const postEditProduct = (req, res, next) => {
     res.redirect('/admin/products')
 }
 
+export const postDeleteProduct = (req, res, next) => {
+    
+    const { id } = req.body
+
+    Product.deleteById(id, () => {
+        res.redirect('/admin/products')
+    })
+}
+
 export const getAdminProductList = (req, res, next) => {
     Product.fetchAll((products) => {
         res.render('admin/admin-product-list', { 
