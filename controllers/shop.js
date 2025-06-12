@@ -11,15 +11,36 @@ export const getProducts = (req, res, next) => {
 }
 
 export const getCart = (req, res, next) => {
-    res.render('shop/cart', { pageTitle: 'Cart' })
+    Cart.getCart((cart) => {        
+        Product.fetchAll(products => {
+            const cartProducts = []
+            for (const product of products) {
+                const cartItem = cart.products.find(item => item.id === product.id)
+                if (cartItem) {
+                    cartProducts.push({productData: product, quantity: cartItem.quantity})
+                }
+            }
+            
+            res.render('shop/cart', { pageTitle: 'Cart', products: cartProducts })
+
+        })
+    })
 }
 
 export const addToCart = (req, res, next) => {
     const id = req.body.id
     Product.getById(id, (product) => {
         Cart.add(id,product.price)
+        res.redirect(req.body.from)
     })
-    res.redirect(req.body.from)
+}
+
+export const deleteFromCart = (req, res, next) => {
+    const id = req.body.id
+    Product.getById(id, (product) => {        
+        Cart.delete(id, product.price)
+        res.redirect('/cart')
+    })
 }
 
 export const getOrders = (req, res, next) => {

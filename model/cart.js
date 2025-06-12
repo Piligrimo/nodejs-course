@@ -43,15 +43,24 @@ export default class Cart {
             
             const updatedCart = {...JSON.parse(data)} 
             const product = updatedCart.products.find(item => item.id === id)
-            console.log('updatedCart 1',updatedCart);
+            if (!product)  return
 
             updatedCart.products = updatedCart.products.filter(item => item.id !== id)
-            console.log('updatedCart 2',updatedCart);
             updatedCart.total -= product.quantity * price
-            console.log('updatedCart 3',updatedCart);
             fs.writeFile(filePath, JSON.stringify(updatedCart), (err) =>{
                 if (err) console.error(err)
             })
+        })
+    }
+
+    static getCart(cb) {
+        fs.readFile(filePath, (err, data) => {
+            const cart = JSON.parse(data)
+            if (err) {
+                cb(null)
+            } else {
+                cb(cart)
+            }
         })
     }
 }
