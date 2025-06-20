@@ -2,11 +2,13 @@ import Cart from "../model/cart.js"
 import Product from "../model/product.js"
 
 export const getProducts = (req, res, next) => {
-    Product.fetchAll((products) => {
+    Product.fetchAll().then(([rows, fieldData]) => {
         res.render('shop/product-list', { 
-            products,
+            products: rows,
             pageTitle: 'All Products'
         })
+    }).catch((err) => {
+        console.log(err)
     })
 }
 
@@ -29,16 +31,16 @@ export const getCart = (req, res, next) => {
 
 export const addToCart = (req, res, next) => {
     const id = req.body.id
-    Product.getById(id, (product) => {
-        Cart.add(id,product.price)
+    Product.getById(id).then(([products]) => {
+        Cart.add(id,products[0].price)
         res.redirect(req.body.from)
     })
 }
 
 export const deleteFromCart = (req, res, next) => {
     const id = req.body.id
-    Product.getById(id, (product) => {        
-        Cart.delete(id, product.price)
+    Product.getById(id).then(([products]) => {
+        Cart.delete(id, products[0].price)
         res.redirect('/cart')
     })
 }
@@ -53,16 +55,18 @@ export const getCheckout = (req, res, next) => {
 
 export const getProductDetails = (req, res, next) => {
     const id = req.params.id
-    Product.getById(id, (product) => {
-        res.render('shop/product-details', { pageTitle: 'Details', product })
+        Product.getById(id).then(([products]) => {
+        res.render('shop/product-details', { pageTitle: 'Details', product: products[0] })
     })
 }
 
 export const getHomePage = (req, res, next) => {
-    Product.fetchAll((products) => {
-        res.render('shop/index', { 
-            products,
+    Product.fetchAll().then(([rows, fieldData]) => {
+        res.render('shop/product-list', { 
+            products: rows,
             pageTitle: 'Home'
         })
+    }).catch((err) => {
+        console.log(err)
     })
 }
